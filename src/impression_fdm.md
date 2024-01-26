@@ -28,7 +28,7 @@ Voici quelques conseils:
 - Utiliser des tolérances pour les assemblages. Le plus souvent 0.2mm est suffisant. Par exemple, pour un axe de 10mm, le trou devrait faire 10.2mm voir 10.4mm.
 
 ### Un exemple de création d'objet
-<img src="../static/fusion360.png" width=800>
+<img src="../static/fusion360.png" height=auto>
 On a ici deux pièces qui sont conçues pour être assemblées. Ici la pièce est séparé en deux pour faciliter l'impression à plat sans supports.
 
 ## Slice
@@ -50,7 +50,7 @@ Voici quelques parametres qui pourraient être interessant à modifier suivant v
 - plate adhesion -> pour certaines pièces, il est fortement recommandé de rajouter un raft ou un brim, ces deux méthodes permettent d'éviter que la pièce "warp" (voir la section troubleshooting pour plus d'information) en augmentant la surface de contact avec le bed.
 
 ### Un exemple de slice
-<img src="../static/cura.png" width=800>
+<img src="../static/cura.png" height=auto>
 
 ### Impression
 
@@ -63,7 +63,7 @@ L'imprimante se charge ensuite de lire le GCODE depuis la SD. On peut distinguer
 - print -> le gcode généré par le slicer pour imprimer votre pièce.
 - end gcode -> la séquence d'instruction de fin: refroidir la buse, le bed, lever la tête et la placer à l'origine.
 
-Vous pouvez si vous le souhaiter modifier les gcode de start et de fin dans la `settings>printer>manage printers>machine settings` de cura.
+Vous pouvez si vous le souhaiter modifier les gcode de start et de fin dans le tab `settings>printer>manage printers>machine settings` de cura.
 
 ## Troubleshooting
 
