@@ -20,13 +20,16 @@ Pour ce tuto, il vous faudra:
 Pour le design, vous pouvez utilisez ce que vous voulez: Fusion360, Blender ou autre. Dans le process, n'oubliez pas de penser aux différentes contraintes d'impression.
 Voici quelques conseils:
 
-- pensez aux forces qui s'exerçeront sur la pièce.
-- les détails trop petits (moins d'un mm).
-- éviter les overhang.
-- utiliser des côtes en millimetres
+- Penser aux forces qui s'exerçeront sur la pièce.
+- Les détails trop petits (moins d'un mm) ne seront difficilement imprimable.
+- Éviter les overhang.
+- Penser à la façon dont la pièce sera imprimée, la face qui sera en contact avec le bed sera la plus lisse. Plus cette face sera grande, plus la pièce sera stable.
+- Utiliser des côtes en millimetres.
+- Utiliser des tolérances pour les assemblages. Le plus souvent 0.2mm est suffisant. Par exemple, pour un axe de 10mm, le trou devrait faire 10.2mm voir 10.4mm.
 
 ### Un exemple de création d'objet
-<!-- todo -->
+<img src="../static/fusion360.png" width=800>
+On a ici deux pièces qui sont conçues pour être assemblées. Ici la pièce est séparé en deux pour faciliter l'impression à plat sans supports.
 
 ## Slice
 
@@ -40,18 +43,18 @@ Voici quelques parametres qui pourraient être interessant à modifier suivant v
 
 - layer height -> dépends directement de la taille de la buse, en général correspond à la moitié de la taille de la buse.
 - line width -> largeur d'une ligne imprimé, dépends aussi de la taille de la buse, la plupart du temps elle correspond a peu pret à la largeur de la buse +/- 10%.
-- vitesse d'impression -> plus c'est élevé plus ça va vite, plus ça débite, plus ça fait des patés dégueux à certains endroits.
+- vitesse d'impression -> l'augmenter permet d'imprimer plus vite, mais peut réduire la qualité de l'impression, les vitesses d'impression sont dépendantes de la taille de la buse, en général les proiles par défaut sont plutôt conservateurs par rapport à la qualité d'impression.
 - infill density -> la densité des remplissages est importante si vous voulez faire des pièces où les contraintes sont importantes. Par défaut entre 15-20%, l'augmenter produira une pièce plus robuste mais demandera plus de temps a imprimer.
-- supports -> votre pièce contient-elle des overhangs ? si oui: mettez des supports.
-- temperatures -> il y a deux températures que vous pouvez régler si jamais vous imprimer avec du filament autre que celui par défaut: la température de la buse et celle du plateau, faites gaffe les plateaux des wanhao ne montent pas très haut, donc éviter d'y imprimer de l'ABS par exemple (de toute façon ça tiendra pas).
-- plate adhesion -> pour certaines pièces, il est fortement recommandé de rajouter un raft ou un brim, ces deux méthodes permettent d'éviter que la pièce "warp" (voir la section troubleshooting pour plus d'information).
+- supports -> votre pièce contient-elle de grands overhangs ? si oui: mettez des supports. Il existe également des supports en forme de tree, c'est parfois interessant de les utiliser.
+- temperatures -> il y a deux températures que vous pouvez régler si jamais vous imprimer avec du filament autre que celui par défaut: la température de la buse et celle du plateau.
+- plate adhesion -> pour certaines pièces, il est fortement recommandé de rajouter un raft ou un brim, ces deux méthodes permettent d'éviter que la pièce "warp" (voir la section troubleshooting pour plus d'information) en augmentant la surface de contact avec le bed.
 
 ### Un exemple de slice
-<!-- todo -->
+<img src="../static/cura.png" width=800>
 
 ### Impression
 
-Pour lancer l'impression, il suffit d'inserer la carte SD et de rentrer dans le menu "print" et cliquer sur votre fichier.
+Pour lancer l'impression, il suffit d'inserer la carte SD ou clef USB et de rentrer dans le menu "print" et cliquer sur votre fichier.
 (*Note: il peut être utile de préchauffer l'imprimante pour eviter de perdre du temps lors du lancement de l'impression*)
 
 L'imprimante se charge ensuite de lire le GCODE depuis la SD. On peut distinguer 3 séctions dans le gcode:
@@ -66,7 +69,6 @@ Vous pouvez si vous le souhaiter modifier les gcode de start et de fin dans la `
 
 Quelques problèmes courant et comment les fix dans la plupart des cas:
 
-- warping -> c'est lorsque l'un bord ou une partie de la pièce ne tient plus sur le bed. Dans 50% des cas c'est dû au design de la pièce, dans le cas écheant, rajouter un brim devrait emplement suffire. dans les 50 autres pourcents restant, recalibrer le plateau peut être une option, néttoyer le plateau, et tout simplement imprimer plus lentement.
-- blobs -> dû à une pression trop élevé dans la buse, des petits blobs se font apparaitre aux jointures lorsqu'une rétractation ou une pause a lieux. Pour réduire cet effet il faut réduire la vitesse d'extrusion, ce qui réduit la préssion dans la buse.
-- stringing -> c'est quand ya pleins de petits fils dans l'impression, en vrai c'est pas hyper grave.
-- l'impression ne démarre pas ? C'est un problème avec la sd. Formatter la carte sd, re-slice le modèle et réessayer.
+- warping -> Lorsque qu'un bord ou une partie de la pièce ne tient plus sur le bed. Dans 50% des cas c'est dû au design de la pièce, dans le cas écheant, rajouter un brim devrait amplement suffire. dans les 50 autres pourcents restant, recalibrer le plateau peut être une option, néttoyer le plateau, ou alors tout simplement imprimer le premier layer plus lentement.
+- blobs -> Dû à une pression trop élevé dans la buse, des petits blobs se font apparaitre aux jointures lorsqu'une rétractation ou une pause a lieux. Pour réduire cet effet, on peut augmenter la distance de rétractation ou bien rajouter du coasting: relacher la pression de la buse avant chaque retraction en réduisant la vitesse d'extrusion.
+- stringing -> L'impression possède des fils entre les différentes parties de la pièce. C'est dû à une rétractation trop faible, augmenter la rétractation devrait régler le problème.
