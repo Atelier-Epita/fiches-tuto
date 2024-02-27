@@ -17,7 +17,8 @@ Pour ce tuto, il vous faudra:
 
 ## Design 3D
 
-Pour le design, vous pouvez utilisez ce que vous voulez: Fusion360, Blender ou autre. Dans le process, n'oubliez pas de penser aux différentes contraintes d'impression.
+Pour le design, vous pouvez utilisez ce que vous voulez: [Fusion360](https://www.autodesk.fr/products/fusion-360/overview) (licence Education possible via EPITA), [Blender](https://www.blender.org/) (FOSS, plutôt orienté modeling), [OpenSCAD](https://openscad.org/) (FOSS, scripting) ou autre.
+Dans le process, n'oubliez pas de penser aux différentes contraintes d'impression.
 Voici quelques conseils:
 
 - Penser aux forces qui s'exerçeront sur la pièce.
@@ -31,15 +32,20 @@ Voici quelques conseils:
 <img src="../static/fusion360.png" width=800>
 On a ici deux pièces qui sont conçues pour être assemblées. Ici la pièce est séparé en deux pour faciliter l'impression à plat sans supports.
 
+### Résultat
+À la fin de cette étape, on **exporte un fichier STL** (mesh 3D) pour le slicing.
+
 ## Slice
 
-Pour Slice, nous utilisons Cura, il est installé sur le PC du lab. Commencez par importer votre modèle: `ctrl+o`, ensuite le placer sur la face qui semble la mieux comme base -> grosse surface plane ou alors un plan qui permet d'imprimer la piece avec le moins de supports possible.
+Pour Slice, nous utilisons [Cura](https://ultimaker.com/software/ultimaker-cura/) (FOSS), il est installé sur le PC du lab. Commencez par importer votre modèle: `ctrl+o`, ensuite le placer sur la face qui semble la mieux comme base -> grosse surface plane ou alors un plan qui permet d'imprimer la piece avec le moins de supports possible.
 
-Il existe deux profils préconfigurés: un pour la d12 230 et un autre pour la d12 300, ils sont update de temps en temps sur le repo `https://github.com/Atelier-Epita/cura`.
+Il existe deux profils préconfigurés pour les imprimants wanhao: un pour la d12 230 et un autre pour la d12 300, ils sont update de temps en temps sur le repo `https://github.com/Atelier-Epita/cura`.
+Il faut les importer dans CURA.
+Pour les imprimantes Artillery, utiliser le profil déjà existant pour le bon modèle dans CURA, il donne de bons résultats.
 Ces profils influent directement sur la qualité des impressions.
 Vous pouvez si vous le souhaitez creer votre propre profil en dupliquant un existant.
 
-Voici quelques parametres qui pourraient être interessant à modifier suivant vos besoin (bien sûr je vous invite a aller regarder la doc pour de plus ample déscriptions):
+Voici quelques parametres qui pourraient être interessant à modifier suivant vos besoins (bien sûr je vous invite a aller regarder la doc pour de plus amples déscriptions):
 
 - layer height -> dépends directement de la taille de la buse, en général correspond à la moitié de la taille de la buse.
 - line width -> largeur d'une ligne imprimé, dépends aussi de la taille de la buse, la plupart du temps elle correspond a peu pret à la largeur de la buse +/- 10%.
@@ -52,18 +58,24 @@ Voici quelques parametres qui pourraient être interessant à modifier suivant v
 ### Un exemple de slice
 <img src="../static/cura.png" width=800>
 
-### Impression
+### Résultat
+À la fin de cette étape, on obtient un **fichier GCODE** (séquence de commande pour l'outil) qu'il faut enregistrer sur un clé USB ou une carte SD.
+
+
+## Impression
 
 Pour lancer l'impression, il suffit d'inserer la carte SD ou clef USB et de rentrer dans le menu "print" et cliquer sur votre fichier.
 (*Note: il peut être utile de préchauffer l'imprimante pour eviter de perdre du temps lors du lancement de l'impression*)
 
-L'imprimante se charge ensuite de lire le GCODE depuis la SD. On peut distinguer 3 séctions dans le gcode:
+L'imprimante se charge ensuite de lire le GCODE depuis le support. On peut distinguer 3 sections dans le gcode:
 
 - start gcode -> la séquence d'instruction exécuté pour toutes les impressions. Elle permet l'initialisation des axes, de la temperature du plateau, de la buse, du néttoyage de la buse
 - print -> le gcode généré par le slicer pour imprimer votre pièce.
 - end gcode -> la séquence d'instruction de fin: refroidir la buse, le bed, lever la tête et la placer à l'origine.
 
 Vous pouvez si vous le souhaiter modifier les gcode de start et de fin dans le tab `settings>printer>manage printers>machine settings` de cura.
+
+Une fois l'impression terminée, retirer la pièce sans se brûler les doigts. Une spatule peut être utile. Attention à le pas rayer le support.
 
 ## Troubleshooting
 
