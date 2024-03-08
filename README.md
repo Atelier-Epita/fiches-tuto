@@ -1,3 +1,4 @@
+Migrated to `atelier-epita/documentation`
 # fiches-tuto
 
 Markdown sources files for genereation of "fiches tutos" at l'Atelier
